@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Scheduler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffcc00, #ff6699, #6600ff, #00cc66);
+            background-size: 400% 400%;
+            animation: gradient 15s linear infinite;
+            margin: 0; /* Remove default body margin */
+            overflow: hidden; /* Hide horizontal scrollbar */
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 20px auto; /* Center the container horizontally */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8); /* Add some transparency to make content readable */
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0;
+            padding: 5px;
+            background-color: yellow;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        
+        h1 {
+            background-image: linear-gradient(45deg, red, blue); /* Change the gradient colors as needed */
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Scheduler</h1>
+        <input type="text" id="taskInput" placeholder="Add a new task">
+        <input type="date" id="dueDate">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="taskList">
+        </ul>
+    </div>
+
+    <script>
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const dueDateInput = document.getElementById("dueDate");
+            const taskText = taskInput.value.trim();
+            const dueDate = dueDateInput.value;
+
+            if (taskText !== "") {
+                const taskList = document.getElementById("taskList");
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <span>${taskText}</span>
+                    <span>Due Date: ${dueDate}</span>
+                    <button onclick="removeTask(this)">Remove</button>
+                `;
+                taskList.appendChild(li);
+                taskInput.value = "";
+                dueDateInput.value = "";
+            }
+        }
+
+        function removeTask(button) {
+            const taskList = document.getElementById("taskList");
+            const li = button.parentElement;
+            taskList.removeChild(li);
+        }
+    </script>
+</body>
+</html>
